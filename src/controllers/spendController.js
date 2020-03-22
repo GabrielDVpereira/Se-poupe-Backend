@@ -1,9 +1,9 @@
 const Spend = require("../models/Spend");
+const moment = require("moment");
 
 module.exports = {
   async store(req, res) {
-    const { name, category, value, local, date } = (requestData = req.body);
-    console.log(requestData);
+    const { name, category, value, local, date, user } = req.body;
 
     try {
       const spend = await Spend.create({
@@ -11,17 +11,18 @@ module.exports = {
         category,
         value,
         local,
-        date
+        date: moment(date).format("YYYY-MM-DD[T00:00:00.000Z]"),
+        user
       });
 
-      return res.json({ response: spend });
+      return res.json({ spend });
     } catch (error) {
       return res.status(400).json({ error: error.message || error });
     }
   },
   async index(req, res) {
     try {
-      const spends = await Spend.find();
+      const spends = await Spend.find().populate("user");
 
       if (spends) return res.json({ response: spends });
       else throw { messge: "You don't have any spends yet" };

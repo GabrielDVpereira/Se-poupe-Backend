@@ -1,14 +1,23 @@
 const Joi = require("joi");
-const validation = require("../config/joiSchema");
+const validationRule = require("../config/joiSchema");
 
 module.exports = {
-  async validateInput(req, res, next) {
-    const dataToValidate = req.body;
+  async validateNewSpendBody(req, res, next) {
+    const body = req.body;
     try {
-      await Joi.validate(dataToValidate, validation);
-      next();
+      await Joi.validate(body, validationRule.spend);
+      return next();
     } catch (error) {
-      return res.status(400).json({ error: error.message || error });
+      return res.status(400).json({ error: error.details[0].message });
+    }
+  },
+  async validateNewUserBody(req, res, next) {
+    const body = req.body;
+    try {
+      await Joi.validate(body, validationRule.user);
+      return next();
+    } catch (error) {
+      return res.status(400).json({ error: error.details[0].message });
     }
   }
 };

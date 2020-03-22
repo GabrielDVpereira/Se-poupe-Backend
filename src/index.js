@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const routes = require("./routes.js");
 const cors = require("cors");
+require("dotenv/config");
 
 const dbAtlas =
   "mongodb+srv://oministack:gabriel299@cluster0-ldd1j.mongodb.net/SePoupe?retryWrites=true&w=majority";
