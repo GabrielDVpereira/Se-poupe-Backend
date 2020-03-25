@@ -14,8 +14,7 @@ const spendRule = {
     .required(),
   date: Joi.string()
     .min(3)
-    .required(),
-  user: Joi.objectId().required()
+    .required()
 };
 
 const userRule = {
