@@ -14,7 +14,6 @@ module.exports = {
         date: moment(date).format("YYYY-MM-DD[T00:00:00.000Z]"),
         user: _id
       });
-      console.log(spend);
       return res.json({ spend });
     } catch (error) {
       return res.status(400).send({ error: error.message || error });
@@ -23,29 +22,19 @@ module.exports = {
   async index(req, res) {
     try {
       const { _id } = req.user;
-      const { current } = req.query;
-      const curretMonth = moment().format("YYYY-MM");
+      const { currentMonth } = req.query;
       let spends;
-
-      // if (current)
-      //   spends = await Spend.find({
-      //     user: _id,
-      //     date: { $in: curretMonth }
-      //   })
-      //     .sort({ date: -1 })
-      //     .populate("user");
-
-      spends = await Spend.find({ user: _id })
-        .sort({ date: -1 })
-        .populate("user");
-
-      const recordsByDate = await Spend.find({
-        date: {
-          $where: "moment(this.date).format('MM') === 3"
-        }
-      });
-
-      console.log(recordsByDate);
+      if (currentMonth) {
+        spends = await Spend.aggregate([
+          { $addFields: { month: { $month: "$date" } } },
+          { $match: { month: Number(currentMonth) } },
+          { $sort: { date: -1 } }
+        ]);
+      } else {
+        spends = await Spend.find({ user: _id })
+          .sort({ date: -1 })
+          .populate("user");
+      }
 
       if (spends) return res.json({ response: spends });
       else throw { messge: "You don't have any spends yet" };

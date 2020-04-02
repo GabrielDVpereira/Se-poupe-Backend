@@ -14,7 +14,7 @@ routes.post(
   [authorize, validationMiddleware.validateNewSpendBody],
   spendController.store
 );
-routes.get("/spend", authorize, spendController.index);
+routes.get("/spends", authorize, spendController.index);
 routes.delete("/spend/:id", authorize, spendController.delete);
 
 routes.post(

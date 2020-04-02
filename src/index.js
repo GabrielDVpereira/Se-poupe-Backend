@@ -6,7 +6,8 @@ const cors = require("cors");
 require("dotenv/config");
 
 const dbAtlas =
-  "mongodb+srv://oministack:gabriel299@cluster0-ldd1j.mongodb.net/SePoupe?retryWrites=true&w=majority";
+  "mongodb://oministack:gabriel299@cluster0-shard-00-00-ldd1j.mongodb.net:27017,cluster0-shard-00-01-ldd1j.mongodb.net:27017,cluster0-shard-00-02-ldd1j.mongodb.net:27017/SePoupe?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority";
+
 mongoose
   .connect(dbAtlas, {
     useNewUrlParser: true,
