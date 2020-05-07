@@ -4,35 +4,35 @@ const jwt = require("jsonwebtoken");
 const UserSchema = mongoose.Schema({
   name: {
     type: String,
-    require: true
+    required: true,
   },
   email: {
     type: String,
-    require: true,
-    unique: true
+    required: true,
+    unique: true,
   },
   birthdate: {
     type: Date,
-    require: true
+    required: true,
   },
   password: {
     type: String,
-    require: true
+    required: true,
   },
   income: {
     type: Number,
-    require: true
-  }
+    required: true,
+  },
 });
 
-UserSchema.methods.generateAuthToken = function() {
+UserSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
     {
       name: this.name,
       email: this.email,
       income: this.income,
       birthdate: this.birthdate,
-      _id: this._id
+      _id: this._id,
     },
     process.env.PRIVATE_KEY
   );
