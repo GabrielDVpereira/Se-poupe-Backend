@@ -23,7 +23,7 @@
   },
   "scripts": {
     "dev": "nodemon src/server.js --ignore __tests__",
-    "test": "NODE_ENV=test jest "
+    "test": "NODE_ENV=test jest --detectOpenHandles"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.1.5",
