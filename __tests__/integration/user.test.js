@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const request = require("supertest");
 const app = require("../../src/index");
+const hashPassword = require("../../src/utils/hash");
+
 
 describe("User model test", () => {
   beforeAll(async () => {
@@ -27,5 +29,14 @@ describe("User model test", () => {
 
     const response = await request(app).post("/user/register").send(mockUser);
     expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('name')
+    expect(response.body).toHaveProperty('_id')
+    expect(response.body).toHaveProperty('birthdate')
+    expect(response.body).toHaveProperty('income')
+    expect(response.headers['x-auth-token']).toBeTruthy();
   });
+  it('should generate hash for password', () => {
+    const passwordHashed = hashPassword('12345'); 
+    expect(passwordHashed).toBeTruthy();
+  })
 });

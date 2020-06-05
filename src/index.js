@@ -6,7 +6,6 @@ const cors = require("cors");
 require("dotenv/config");
 
 const dbAtlas = process.env.MONGO_URI;
-
 mongoose
   .connect(dbAtlas, {
     useNewUrlParser: true,
@@ -18,6 +17,5 @@ mongoose
 app.use(express.json());
 app.use(cors());
 app.use(routes);
-app.listen(3333);
 
 module.exports = app;

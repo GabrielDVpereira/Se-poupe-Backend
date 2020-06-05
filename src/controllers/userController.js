@@ -20,7 +20,6 @@ module.exports = {
         birthdate: moment(birthdate).format("YYYY-MM-DD[T00:00:00.000Z]"),
         income
       });
-      console.log(user);
 
       const token = user.generateAuthToken();
       res
