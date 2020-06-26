@@ -3,7 +3,7 @@ const hashPassword = require("../utils/hash");
 const _ = require("lodash");
 const moment = require("moment");
 
-module.exports = {
+class UserController {
   async create(req, res) {
     const { email, name, password, birthdate, income } = req.body;
     try {
@@ -18,7 +18,7 @@ module.exports = {
         name,
         password: hashedPassword,
         birthdate: moment(birthdate).format("YYYY-MM-DD[T00:00:00.000Z]"),
-        income
+        income,
       });
 
       const token = user.generateAuthToken();
@@ -29,7 +29,7 @@ module.exports = {
       console.log(error);
       res.status(400).send(error);
     }
-  },
+  }
   async current(req, res) {
     try {
       const { _id } = req.user;
@@ -42,4 +42,5 @@ module.exports = {
       res.status(400).send(error);
     }
   }
-};
+}
+module.exports = new UserController();
