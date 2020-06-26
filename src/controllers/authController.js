@@ -2,7 +2,8 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 
-module.exports = {
+class AuthController {
+  constructor() {}
   async auth(req, res) {
     const { email, password } = req.body;
 
@@ -25,7 +26,7 @@ module.exports = {
 
       return res.status(400).json({ error: error.message || error });
     }
-  },
+  }
   current(res, req) {
     const { _id } = req.user;
 
@@ -38,4 +39,5 @@ module.exports = {
       res.status(400).send(error);
     }
   }
-};
+}
+module.exports = new AuthController();

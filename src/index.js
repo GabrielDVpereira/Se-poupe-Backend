@@ -1,23 +1,21 @@
+require("dotenv/config");
 const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
 const routes = require("./routes.js");
 const cors = require("cors");
-require("dotenv/config");
+require("./database");
 
-if(process.env.NODE_ENV !== 'test'){
-  const dbAtlas = process.env.MONGO_URI;
-  mongoose
-    .connect(dbAtlas, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
-    .then(() => console.log("Connect to MongoDB"))
-    .catch((err) => console.error("could not connect to MongoDB" + err));
+class App {
+  constructor() {
+    this.app = express();
+    this.routes();
+  }
+  middlewares() {
+    this.app.use(express.json());
+    this.app.use(cors());
+  }
+
+  routes() {
+    this.app.use(routes);
+  }
 }
-
-app.use(express.json());
-app.use(cors());
-app.use(routes);
-
-module.exports = app;
+module.exports = new App().app;
