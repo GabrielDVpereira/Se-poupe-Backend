@@ -1,19 +1,10 @@
-const mongoose = require("mongoose");
 const request = require("supertest");
 const app = require("../../src/index");
+const initTestDatabase = require("../config/database.test");
 
 describe("User model test", () => {
   beforeAll(async () => {
-    await mongoose.connect(
-      global.__MONGO_URI__,
-      { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
-      (err) => {
-        if (err) {
-          console.log(error);
-          process.exit(1);
-        }
-      }
-    );
+    await initTestDatabase();
   });
 
   it("Should create and save user successfully", async () => {
