@@ -1,8 +1,9 @@
-const Spend = require("../models/Spend");
-const moment = require("moment");
+import Spend from "../models/Spend";
+import moment from "moment";
+import {Req, Res} from 'express';
 
 class SpendController {
-  async store(req, res) {
+  async store(req: Req, res: Res) {
     const { name, category, value, local, date } = req.body;
     const { _id } = req.user;
     try {
@@ -19,7 +20,7 @@ class SpendController {
       return res.status(400).send({ error: error.message || error });
     }
   }
-  async index(req, res) {
+  async index(req: Req, res: Res) {
     try {
       const { _id } = req.user;
       const { currentMonth } = req.query;
@@ -43,7 +44,7 @@ class SpendController {
     }
   }
 
-  async delete(req, res) {
+  async delete(req: Req, res: Res) {
     const _id = req.params.id;
     console.log(_id);
 
@@ -56,4 +57,4 @@ class SpendController {
   }
 }
 
-module.exports = new SpendController();
+ export default new SpendController();
