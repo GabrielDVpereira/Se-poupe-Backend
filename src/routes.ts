@@ -24,6 +24,5 @@ routes.post(
 );
 routes.get("/spends", spendController.index);
 routes.delete("/spend/:id", spendController.delete);
-routes.get("/user/current", userController.current);
 
 export default routes;

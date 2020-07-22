@@ -2,9 +2,10 @@ const User = require("../models/User");
 const hashPassword = require("../utils/hash");
 const _ = require("lodash");
 const moment = require("moment");
+import { Request, Response } from 'express'; 
 
 class UserController {
-  async create(req, res) {
+  async create(req:Request , res:Response) {
     const { email, name, password, birthdate, income } = req.body;
     try {
       let user = await User.findOne({ email });
@@ -30,17 +31,5 @@ class UserController {
       res.status(400).send(error);
     }
   }
-  async current(req, res) {
-    try {
-      const { _id } = req.user;
-
-      const user = await User.findById(_id).select("-password"); //excluding the password from the request
-      if (!user) throw "no user found";
-      return res.json(user);
-    } catch (error) {
-      console.log(error);
-      res.status(400).send(error);
-    }
-  }
 }
-module.exports = new UserController();
+export default new UserController();

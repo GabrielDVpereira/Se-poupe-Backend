@@ -1,14 +1,16 @@
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
-const _ = require("lodash");
+import Users from "../models/User";
+import { User } from '../interfaces/user';
+import bcrypt from "bcrypt";
+import _ from "lodash";
+import { Response, Request } from 'express';
 
 class AuthController {
   constructor() {}
-  async auth(req, res) {
-    const { email, password } = req.body;
+  async auth(req: Request, res: Response) {
+    const { email, password } = <any>req.body;
 
     try {
-      let user = await User.findOne({ email });
+      let user:User = await Users.findOne({ email });
       if (!user) throw "Invalid email or password provided";
 
       const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -27,17 +29,5 @@ class AuthController {
       return res.status(400).json({ error: error.message || error });
     }
   }
-  current(res, req) {
-    const { _id } = req.user;
-
-    try {
-      const user = User.findById(_id).select("-password"); //excluding the password from the request
-      if (!user) throw "no user found";
-      return res.json(user);
-    } catch (error) {
-      console.log(error);
-      res.status(400).send(error);
-    }
-  }
 }
-module.exports = new AuthController();
+export default new AuthController();

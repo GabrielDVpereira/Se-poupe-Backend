@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 class Database {
   constructor() {
@@ -6,7 +6,7 @@ class Database {
   }
   init() {
     if (process.env.NODE_ENV !== "test") {
-      const dbAtlas = process.env.MONGO_URI;
+      const dbAtlas = process.env.MONGO_URI!;
       mongoose
         .connect(dbAtlas, {
           useNewUrlParser: true,
@@ -18,4 +18,4 @@ class Database {
   }
 }
 
-module.exports = new Database();
+export default new Database();

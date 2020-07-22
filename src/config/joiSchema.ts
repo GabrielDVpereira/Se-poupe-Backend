@@ -1,5 +1,5 @@
-const Joi = require("joi");
-Joi.objectId = require("joi-objectid")(Joi);
+import Joi from "joi";
+
 const spendRule = {
   name: Joi.string()
     .min(3)
@@ -35,7 +35,7 @@ const userRule = {
   birthdate: Joi.string().required()
 };
 
-module.exports = {
+export default {
   spend: spendRule,
   user: userRule
 };
