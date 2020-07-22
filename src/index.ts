@@ -1,10 +1,11 @@
-require("dotenv").config();
-const express = require("express");
-const routes = require("./routes.js");
-const cors = require("cors");
-require("./database");
+import "dotenv/config";
+import express, {Express} from "express";
+import routes from "./routes";
+import cors from "cors";
+import "./database";
 
 class App {
+  app: Express;
   constructor() {
     this.app = express();
     this.middlewares();
@@ -19,4 +20,4 @@ class App {
     this.app.use(routes);
   }
 }
-module.exports = new App().app;
+export default new App().app;

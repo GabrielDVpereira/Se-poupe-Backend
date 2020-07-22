@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const SendSchema = mongoose.Schema({
+const SendSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -27,4 +27,4 @@ const SendSchema = mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("Spend", SendSchema);
+export default mongoose.model("Spend", SendSchema);

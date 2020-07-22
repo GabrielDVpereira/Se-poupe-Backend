@@ -1,11 +1,12 @@
 import Spend from "../models/Spend";
-import moment from "moment";
-import {Req, Res} from 'express';
 
+import moment from "moment";
+import { Request, Response } from 'express';
+import { User } from '../interfaces/user'
 class SpendController {
-  async store(req: Req, res: Res) {
+  async store(req: Request, res: Response) {
     const { name, category, value, local, date } = req.body;
-    const { _id } = req.user;
+    const { _id } = <User>req.user;
     try {
       const spend = await Spend.create({
         name,
@@ -20,7 +21,7 @@ class SpendController {
       return res.status(400).send({ error: error.message || error });
     }
   }
-  async index(req: Req, res: Res) {
+  async index(req: Request, res: Response) {
     try {
       const { _id } = req.user;
       const { currentMonth } = req.query;
@@ -44,12 +45,12 @@ class SpendController {
     }
   }
 
-  async delete(req: Req, res: Res) {
+  async delete(req: Request, res: Response) {
     const _id = req.params.id;
     console.log(_id);
 
     try {
-      const spend = await Spend.deleteOne({ _id }, function (error) {});
+      const spend = await Spend.deleteOne({ _id }, function (error: any) {});
       return res.send(spend);
     } catch (error) {
       return res.status(400).json({ error: error.message || error });
