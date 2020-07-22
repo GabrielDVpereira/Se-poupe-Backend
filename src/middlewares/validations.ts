@@ -1,8 +1,9 @@
-const Joi = require("joi");
-const validationRule = require("../config/joiSchema");
+import Joi from "joi";
+import validationRule from "../config/joiSchema";
+import { Request, Response, NextFunction } from 'express'; 
 
-module.exports = {
-  async validateNewSpendBody(req, res, next) {
+ class Validation {
+  async validateNewSpendBody(req:Request, res:Response, next:NextFunction) {
     const body = req.body;
     try {
       await Joi.validate(body, validationRule.spend);
@@ -10,8 +11,8 @@ module.exports = {
     } catch (error) {
       return res.status(400).json({ error: error.details[0].message });
     }
-  },
-  async validateNewUserBody(req, res, next) {
+  }
+  async validateNewUserBody(req:Request, res:Response, next:NextFunction) {
     const body = req.body;
     try {
       await Joi.validate(body, validationRule.user);
@@ -22,3 +23,5 @@ module.exports = {
     }
   }
 };
+
+export default new Validation();
