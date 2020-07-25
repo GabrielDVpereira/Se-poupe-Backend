@@ -1,7 +1,16 @@
-import mongoose from "mongoose";
+import mongoose, {Schema, Document }from "mongoose";
 import jwt from "jsonwebtoken";
 
-const UserSchema = new mongoose.Schema({
+export interface IUser extends Document {
+  name: string,
+  email: string,
+  birthdate: Date,
+  password: string,
+  income: number ,
+  generateAuthToken: Function
+}
+
+const UserSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -39,4 +48,4 @@ UserSchema.methods.generateAuthToken = function () {
   return token;
 };
 
-export default mongoose.model("User", UserSchema);
+export default mongoose.model<IUser>("User", UserSchema);

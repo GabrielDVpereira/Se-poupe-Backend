@@ -1,16 +1,22 @@
-import Users from "../models/User";
-import { User } from '../interfaces/user';
+import User from "../models/User";
 import bcrypt from "bcrypt";
 import _ from "lodash";
 import { Response, Request } from 'express';
+import { IUser } from '../models/User'; 
+
+
+interface UserAuthInfo {
+  email: IUser['email'], 
+  password: IUser['password']
+}
 
 class AuthController {
   constructor() {}
   async auth(req: Request, res: Response) {
-    const { email, password } = <any>req.body;
+    const { email, password } = <UserAuthInfo>req.body;
 
     try {
-      let user:User = await Users.findOne({ email });
+      let user = await User.findOne({ email });
       if (!user) throw "Invalid email or password provided";
 
       const isPasswordValid = await bcrypt.compare(password, user.password);

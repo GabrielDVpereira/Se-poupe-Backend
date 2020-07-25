@@ -1,6 +1,16 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
+import { IUser } from './User'
 
-const SendSchema = new mongoose.Schema({
+export interface ISpend extends Document {
+  name: string,
+  value: string,
+  local: string,
+  category: string,
+  date: Date,
+  user: IUser['_id']
+}
+
+const SendSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -27,4 +37,4 @@ const SendSchema = new mongoose.Schema({
   }
 });
 
-export default mongoose.model("Spend", SendSchema);
+export default mongoose.model<ISpend>("Spend", SendSchema);

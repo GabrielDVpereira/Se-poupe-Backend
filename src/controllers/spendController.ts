@@ -2,11 +2,12 @@ import Spend from "../models/Spend";
 
 import moment from "moment";
 import { Request, Response } from 'express';
-import { User } from '../interfaces/user'
+import { ISpend } from '../models/Spend'; 
+
 class SpendController {
   async store(req: Request, res: Response) {
-    const { name, category, value, local, date } = req.body;
-    const { _id } = <User>req.user;
+    const { name, category, value, local, date } = <ISpend>req.body;
+
     try {
       const spend = await Spend.create({
         name,
@@ -14,7 +15,7 @@ class SpendController {
         value,
         local,
         date: moment(date).format("YYYY-MM-DD[T00:00:00.000Z]"),
-        user: _id,
+        user: req.user._id,
       });
       return res.json({ spend });
     } catch (error) {
