@@ -1,8 +1,8 @@
 import Spend from "../models/Spend";
 
 import moment from "moment";
-import { Request, Response } from 'express';
-import { ISpend } from '../models/Spend'; 
+import { Request, Response } from "express";
+import { ISpend } from "../models/Spend";
 
 class SpendController {
   async store(req: Request, res: Response) {
@@ -59,4 +59,4 @@ class SpendController {
   }
 }
 
- export default new SpendController();
+export default new SpendController();
