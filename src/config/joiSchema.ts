@@ -1,41 +1,22 @@
 import Joi from "joi";
 
 const spendRule = {
-  name: Joi.string()
-    .min(3)
-    .max(50)
-    .required(),
-  category: Joi.string()
-    .min(3)
-    .required(),
+  name: Joi.string().min(3).max(50).required(),
+  category: Joi.string().min(3).required(),
   value: Joi.number().required(),
-  local: Joi.string()
-    .min(3)
-    .required(),
-  date: Joi.string()
-    .min(3)
-    .required()
+  local: Joi.string().min(3).required(),
+  date: Joi.string().min(3).required(),
 };
 
 const userRule = {
-  name: Joi.string()
-    .min(3)
-    .max(50)
-    .required(),
-  password: Joi.string()
-    .min(6)
-    .max(50)
-    .required(),
-  email: Joi.string()
-    .min(3)
-    .max(50)
-    .email()
-    .required(),
+  name: Joi.string().min(3).max(50).required(),
+  password: Joi.string().min(6).max(50).required(),
+  email: Joi.string().min(3).max(50).email().required(),
   income: Joi.number().required(),
-  birthdate: Joi.string().required()
+  birthdate: Joi.string().required(),
 };
 
 export default {
   spend: spendRule,
-  user: userRule
+  user: userRule,
 };
