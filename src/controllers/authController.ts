@@ -1,13 +1,12 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import _ from "lodash";
-import { Response, Request } from 'express';
-import { IUser } from '../models/User'; 
-
+import { Response, Request } from "express";
+import { IUser } from "../models/User";
 
 interface UserAuthInfo {
-  email: IUser['email'], 
-  password: IUser['password']
+  email: IUser["email"];
+  password: IUser["password"];
 }
 
 class AuthController {
