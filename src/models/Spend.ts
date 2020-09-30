@@ -1,40 +1,41 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { IUser } from './User'
+import { IUser } from "./User";
 
 export interface ISpend extends Document {
-  name: string,
-  value: string,
-  local: string,
-  category: string,
-  date: Date,
-  user: IUser['_id']
+  name: string;
+  value: string;
+  local: string;
+  category: string;
+  date: Date;
+  user: IUser["_id"];
 }
 
 const SendSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   value: {
     type: Number,
-    required: true
+    required: true,
   },
   local: {
     type: String,
-    required: true
+    required: true,
   },
   category: {
     type: String,
-    required: true
+    required: true,
   },
   date: {
     type: Date,
-    required: true
+    required: true,
   },
+
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
-  }
+    ref: "User",
+  },
 });
 
 export default mongoose.model<ISpend>("Spend", SendSchema);
